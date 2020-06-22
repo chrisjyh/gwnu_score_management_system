@@ -49,3 +49,18 @@ class ScoreManagementSystem:
             temp_num = num
 
         return result.strip()
+           def sort(self, order_key="register", order_way = "asc"):
+        if order_key == "register" and order_way == "asc":
+            sorted_score = sorted(self._score.items())
+        elif order_key == "register" and order_way == "des":
+            sorted_score = sorted(self._score.items() , reverse = True)
+        elif order_key == "rank" and order_way == "asc":
+            sorted_score = sorted(self._score.items(),key = key_rank, reverse = True)
+        elif order_key == "rank" and order_way == "des":
+            sorted_score = sorted(self._score.items(),key = key_rank )
+        result = self._make_cars_string(sorted_score,order_key,order_way)
+        return result
+    def write(self,file_name,order_key='register',order_way='asc'):
+        with open(file_name, 'wt', encoding= 'utf-8') as fo:
+            result = self.sort(order_key,order_way)
+            fo.write(result)
